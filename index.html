@@ -61,7 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 72px;
+            height: 120px;
         }
 
         .logo {
@@ -115,7 +115,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            padding-top: 72px;
+            padding-top: 120px;
             overflow: hidden;
         }
 
@@ -146,6 +146,14 @@
             font-size: 0.85rem;
             color: var(--primary-light);
             margin-bottom: 24px;
+        }
+
+        
+        .hero-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.2);
+            border-color: rgba(107, 70, 193, 0.6);
+            color: var(--text);
         }
 
         .hero-badge::before {
@@ -267,7 +275,7 @@
 
         .problem-card .icon {
             width: 48px;
-            height: 48px;
+            height: 84px;
             background: rgba(239, 68, 68, 0.1);
             border-radius: 12px;
             display: flex;
@@ -314,7 +322,7 @@
 
         .solution-card .icon {
             width: 48px;
-            height: 48px;
+            height: 84px;
             background: rgba(34, 197, 94, 0.1);
             border-radius: 12px;
             display: flex;
@@ -337,50 +345,56 @@
 
         /* Architecture Section */
         .architecture-flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
             margin-top: 48px;
+            position: relative;
         }
 
         .arch-step {
             background: var(--bg-elevated);
             border: 1px solid rgba(107, 70, 193, 0.3);
             border-radius: 16px;
-            padding: 24px 32px;
-            text-align: center;
-            min-width: 180px;
+            padding: 32px 24px;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .arch-step:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
         }
 
         .arch-step .num {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             background: var(--gradient);
-            border-radius: 50%;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+            color: white;
         }
 
         .arch-step h4 {
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            color: var(--text);
         }
 
         .arch-step p {
             color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .arch-arrow {
-            color: var(--primary-light);
-            font-size: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         /* Stats Section */
@@ -488,27 +502,276 @@
                 padding: 80px 0;
             }
 
-            .arch-arrow {
-                transform: rotate(90deg);
-            }
+            
 
             footer .container {
                 flex-direction: column;
                 text-align: center;
             }
         }
-    </style>
+    
+        /* Animation & UI Enhancements */
+        section:not(.hero) {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible, section.hero {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Simulation Section */
+        .sim-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .sim-container {
+                flex-direction: column;
+            }
+        }
+
+
+        .sim-disclaimer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-subtle);
+            margin-top: 12px;
+            font-style: italic;
+        }
+        .sim-box {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .sim-box.auto {
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.1);
+        }
+
+        .sim-box.dimba {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.1);
+        }
+
+        .sim-header {
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        .dot.green { background: #10b981; box-shadow: 0 0 10px #10b981; }
+
+        .sim-header h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .sim-body {
+            height: 120px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.2rem;
+            position: relative;
+            color: #fff;
+        }
+
+        .sim-text {
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .sim-footer {
+            padding: 12px 20px;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .status-badge.slow { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .status-badge.fast { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2rem;
+            background: var(--text);
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .vs-badge {
+            background: var(--gradient);
+            color: white;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            width: 48px;
+            height: 84px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(107, 70, 193, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .vs-badge { position: relative; left: auto; top: auto; transform: none; margin: 10px auto; }
+        }
+
+        /* Founder Section */
+        .founder-section {
+            background: 
+                radial-gradient(circle at right center, rgba(107, 70, 193, 0.1), transparent 50%),
+                var(--bg-card);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .founder-content {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .founder-content { flex-direction: column; text-align: center; gap: 32px; }
+        }
+
+        .founder-image-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .founder-image {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .founder-badge {
+            position: absolute;
+            bottom: -16px;
+            right: -16px;
+            background: var(--gradient);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 16px rgba(107, 70, 193, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .founder-badge { right: 50%; transform: translateX(50%); }
+        }
+
+        .founder-text h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .founder-text .subtitle {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .founder-text p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .social-links { display: flex; gap: 16px; }
+        @media (max-width: 768px) { .social-links { justify-content: center; } }
+
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Hover animations on cards */
+        .problem-card, .solution-card, .arch-step {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .problem-card:hover, .solution-card:hover, .arch-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+</style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <div class="logo">DimbaLabs</div>
+            <a href="#" class="logo">
+                <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 98px; width: auto; filter: drop-shadow(0 0 8px rgba(107, 70, 193, 0.5));">
+            </a>
             <ul class="nav-links">
                 <li><a href="#problem">Problem</a></li>
                 <li><a href="#solution">Solution</a></li>
                 <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#research">Research</a></li>
+                <li><a href="#founder">Founder</a></li>
             </ul>
             <a href="#contact" class="nav-cta">Get in Touch</a>
         </div>
@@ -519,16 +782,20 @@
         <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">Currently Training D1-Base</div>
+                <a href="https://manifund.org/projects/dimba-non-autoregressive-diffusion-language-model-with-mamba-2-ssms?tab=similar" target="_blank" class="hero-badge" style="text-decoration: none; transition: all 0.2s; cursor: pointer;">🚀 We are seeking funding! Support DimbaLabs on Manifund →</a>
                 <h1>The First <span>Diffusion-Based</span> Language Model Built on Mamba-2</h1>
                 <p>Dimba generates entire sequences in parallel through iterative refinement. No token-by-token bottleneck. No quality tradeoff. Just fast, coherent AI.</p>
                 <div class="hero-cta">
-                    <a href="#solution" class="btn-primary">How It Works</a>
+                    <a href="#solution" class="btn-primary">See the Paradigm Shift</a>
                     <a href="https://github.com/devnull37/dimba-lib-exp" class="btn-secondary">GitHub</a>
                 </div>
             </div>
         </div>
     </section>
+
+    
+    
+    
 
     <!-- Problem -->
     <section id="problem">
@@ -569,6 +836,24 @@
                 <h2>The Solution</h2>
                 <p>Dimba fuses diffusion and state-space models for parallel generation with transformer-level quality.</p>
             </div>
+            <div class="sim-container single-box">
+                <div class="sim-box" id="main-sim-box">
+                    <div class="sim-header">
+                        <span class="dot" id="sim-dot"></span>
+                        <h3 id="sim-title">Phase 1: Standard Autoregressive</h3>
+                    </div>
+                    <div class="sim-body">
+                        <p id="sim-text" class="sim-text"></p>
+                        <span class="cursor" id="sim-cursor"></span>
+                    </div>
+                    <div class="sim-footer">
+                        <span>Speed: <span id="sim-speed" class="status-badge slow">O(n) Sequential</span></span>
+                        <span>Status: <span id="sim-status" class="status-badge">Typing...</span></span>
+                    </div>
+                </div>
+            </div>
+            <p class="sim-disclaimer">*Note: This is a visual simulation representing the generation process.</p>
+            <div style="height: 64px;"></div>
             <div class="solution-grid">
                 <div class="solution-card">
                     <div class="icon">⚡</div>
@@ -605,25 +890,22 @@
                 <div class="arch-step">
                     <div class="num">1</div>
                     <h4>Noise</h4>
-                    <p>Random embeddings</p>
+                    <p>Initialize random continuous embeddings in latent space.</p>
                 </div>
-                <div class="arch-arrow">→</div>
                 <div class="arch-step">
                     <div class="num">2</div>
                     <h4>Denoise</h4>
-                    <p>Mamba-2 SSM layers</p>
+                    <p>Process globally via linear-time Mamba-2 SSM layers.</p>
                 </div>
-                <div class="arch-arrow">→</div>
                 <div class="arch-step">
                     <div class="num">3</div>
                     <h4>Refine</h4>
-                    <p>Cosine diffusion steps</p>
+                    <p>Apply iterative cosine diffusion steps to shape structure.</p>
                 </div>
-                <div class="arch-arrow">→</div>
                 <div class="arch-step">
                     <div class="num">4</div>
                     <h4>Decode</h4>
-                    <p>Discrete tokens</p>
+                    <p>Project the refined embeddings into discrete text tokens.</p>
                 </div>
             </div>
         </div>
@@ -685,14 +967,38 @@
         </div>
     </section>
 
+    
+    <!-- Founder Section -->
+    <section id="founder" class="founder-section" data-aos="fade-up">
+        <div class="container">
+            <div class="founder-content">
+                <div class="founder-image-container">
+                    <img src="faris.png" alt="Faris Allafi" class="founder-image">
+                    <div class="founder-badge">Founder & CEO</div>
+                </div>
+                <div class="founder-text">
+                    <h2>Meet Faris Allafi</h2>
+                    <p class="subtitle">Pioneering the next generation of AI architecture.</p>
+                    <p>Faris recognized that the sequential bottleneck of autoregressive transformers was the single greatest barrier to real-time AI. By bridging the gap between state-space models and diffusion, he built DimbaLabs to unlock parallel generation without sacrificing quality.</p>
+                    <div class="social-links" style="flex-wrap: wrap;">
+                        <a href="https://farisallafi.xyz" target="_blank" class="social-btn">farisallafi.xyz</a>
+                        <a href="https://linktr.ee/farisallafi" target="_blank" class="social-btn">Linktree</a>
+                        <a href="https://github.com/devnull37" target="_blank" class="social-btn">GitHub</a>
+                        <a href="mailto:faris.qais.allafi@gmail.com" class="social-btn">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section id="contact" class="cta">
         <div class="container">
-            <h2>Follow Our Progress</h2>
-            <p>We're training D1-Base now. Follow along as we build the future of language models.</p>
+            <h2>Support the Future of AI</h2>
+            <p>We are actively seeking funding to scale Dimba and build the next generation of parallel language models. Support our research today.</p>
             <div class="hero-cta">
-                <a href="mailto:faris.qais.allafi@gmail.com" class="btn-primary">Get in Touch</a>
-                <a href="https://github.com/devnull37/dimba-lib-exp" class="btn-secondary">View on GitHub</a>
+                <a href="https://manifund.org/projects/dimba-non-autoregressive-diffusion-language-model-with-mamba-2-ssms?tab=similar" target="_blank" class="btn-primary">Fund Us on Manifund</a>
+                <a href="mailto:faris.qais.allafi@gmail.com" class="btn-secondary">Get in Touch</a>
             </div>
         </div>
     </section>
@@ -700,13 +1006,147 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="logo">DimbaLabs</div>
+            <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 84px; filter: drop-shadow(0 0 4px rgba(107, 70, 193, 0.5));">
             <p>© 2026 DimbaLabs. Built in Abu Dhabi.</p>
             <div class="social">
+                <a href="https://farisallafi.xyz" target="_blank">farisallafi.xyz</a>
+                <a href="https://linktr.ee/farisallafi" target="_blank">Linktree</a>
                 <a href="https://github.com/devnull37/dimba-lib-exp">GitHub</a>
                 <a href="mailto:faris.qais.allafi@gmail.com">Email</a>
             </div>
         </div>
     </footer>
+
+    
+    <script>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // The Animation Feature
+        const TARGET_TEXT = "The future is non-autoregressive.";
+        const simTextEl = document.getElementById('sim-text');
+        const simTitleEl = document.getElementById('sim-title');
+        const simStatusEl = document.getElementById('sim-status');
+        const simSpeedEl = document.getElementById('sim-speed');
+        const simDotEl = document.getElementById('sim-dot');
+        const simCursorEl = document.getElementById('sim-cursor');
+        const simBoxEl = document.getElementById('main-sim-box');
+        
+        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]|;:,.<>?~";
+
+        function generateNoise(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return result;
+        }
+
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function runSimulation() {
+            while (true) {
+                // --- Phase 1: Autoregressive ---
+                simBoxEl.className = "sim-box auto";
+                simTitleEl.textContent = "Phase 1: Standard Autoregressive";
+                simSpeedEl.textContent = "O(n) Sequential";
+                simSpeedEl.className = "status-badge slow";
+                simStatusEl.textContent = "Generating tokens...";
+                simDotEl.className = "dot red";
+                simCursorEl.style.display = "inline-block";
+                simTextEl.textContent = "";
+
+                // Type out letter by letter (takes ~3 seconds)
+                for (let i = 0; i < TARGET_TEXT.length; i++) {
+                    simTextEl.textContent += TARGET_TEXT[i];
+                    await sleep(70 + Math.random() * 40); // 70-110ms per char
+                }
+                
+                simStatusEl.textContent = "Complete";
+                
+                // Wait a moment so user can read it
+                await sleep(1500);
+
+                // --- Transition ---
+                simTextEl.textContent = ""; // The box clears
+                await sleep(500);
+
+                // --- Phase 2: DIMBA Parallel ---
+                simBoxEl.className = "sim-box dimba";
+                simTitleEl.textContent = "Phase 2: DIMBA Parallel Simulation";
+                simSpeedEl.textContent = "O(1) Parallel";
+                simSpeedEl.className = "status-badge fast";
+                simStatusEl.textContent = "Diffusion Noise Injection...";
+                simDotEl.className = "dot green";
+                simCursorEl.style.display = "none";
+                
+                // Instantly appear as noise
+                let currentText = generateNoise(TARGET_TEXT.length);
+                simTextEl.textContent = currentText;
+                
+                await sleep(100);
+
+                // Scramble and resolve over 0.5 seconds
+                const steps = 15;
+                const stepTime = 500 / steps; // 500ms total
+                
+                for (let step = 1; step <= steps; step++) {
+                    simStatusEl.textContent = `Denoising Step ${step}/${steps}...`;
+                    let tempText = "";
+                    for (let i = 0; i < TARGET_TEXT.length; i++) {
+                        // Probability of correct character increases with each step
+                        if (Math.random() < (step / steps)) {
+                            tempText += TARGET_TEXT[i];
+                        } else {
+                            tempText += charset.charAt(Math.floor(Math.random() * charset.length));
+                        }
+                    }
+                    // Guarantee last step is perfect
+                    if (step === steps) tempText = TARGET_TEXT;
+                    
+                    simTextEl.textContent = tempText;
+                    await sleep(stepTime);
+                }
+                
+                simStatusEl.textContent = "Resolved instantly";
+                
+                // Wait before looping (5 second total cycle, 3s auto + 1.5s wait + 0.5s transition + 0.5s dimba + ~0s wait = ~5.5s cycle)
+                // Let's add 2s wait at the end to read the final state before looping
+                await sleep(2500);
+                
+                // Clear for next loop
+                simTextEl.textContent = "";
+                await sleep(300);
+            }
+        }
+
+        // Start animation when solution section is visible
+        let started = false;
+        const simObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !started) {
+                started = true;
+                runSimulation();
+            }
+        });
+        const solutionSection = document.getElementById('solution');
+        if (solutionSection) {
+            simObserver.observe(solutionSection);
+        }
+
+    </script>
 </body>
+
+
 </html>
