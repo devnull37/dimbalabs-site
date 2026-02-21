@@ -9,16 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6B46C1;
-            --primary-light: #8B5CF6;
-            --accent: #06B6D4;
-            --bg: #0F0F0F;
-            --bg-elevated: #1A1A1A;
-            --bg-card: #242424;
-            --text: #FFFFFF;
-            --text-muted: #A1A1AA;
-            --text-subtle: #71717A;
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --accent: #22c55e;
+            --accent-red: #ef4444;
+            --bg: #0f172a;
+            --bg-elevated: #1e293b;
+            --bg-card: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-subtle: #64748b;
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
         }
 
         * {
@@ -105,7 +107,7 @@
 
         .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(107, 70, 193, 0.3);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
         }
 
         /* Hero Section */
@@ -123,8 +125,8 @@
             position: absolute;
             inset: 0;
             background: 
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(107, 70, 193, 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(6, 182, 212, 0.1), transparent);
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(34, 197, 94, 0.08), transparent);
             pointer-events: none;
         }
 
@@ -139,8 +141,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(107, 70, 193, 0.1);
-            border: 1px solid rgba(107, 70, 193, 0.3);
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.85rem;
@@ -151,8 +153,8 @@
         
         .hero-badge:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.2);
-            border-color: rgba(107, 70, 193, 0.6);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.6);
             color: var(--text);
         }
 
@@ -211,7 +213,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(107, 70, 193, 0.4);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
         }
 
         .btn-secondary {
@@ -354,7 +356,7 @@
 
         .arch-step {
             background: var(--bg-elevated);
-            border: 1px solid rgba(107, 70, 193, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 16px;
             padding: 32px 24px;
             text-align: left;
@@ -366,7 +368,7 @@
         .arch-step:hover {
             transform: translateY(-8px);
             border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.15);
         }
 
         .arch-step .num {
@@ -380,7 +382,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
             color: white;
         }
 
@@ -433,7 +435,7 @@
         .cta {
             text-align: center;
             background: 
-                radial-gradient(ellipse 60% 40% at 50% 100%, rgba(107, 70, 193, 0.2), transparent);
+                radial-gradient(ellipse 60% 40% at 50% 100%, rgba(59, 130, 246, 0.15), transparent);
         }
 
         .cta h2 {
@@ -651,7 +653,7 @@
             top: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
-            box-shadow: 0 0 20px rgba(107, 70, 193, 0.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -661,7 +663,7 @@
         /* Founder Section */
         .founder-section {
             background: 
-                radial-gradient(circle at right center, rgba(107, 70, 193, 0.1), transparent 50%),
+                radial-gradient(circle at right center, rgba(59, 130, 246, 0.08), transparent 50%),
                 var(--bg-card);
             border-top: 1px solid rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -702,7 +704,7 @@
             border-radius: 100px;
             font-weight: 600;
             font-size: 0.9rem;
-            box-shadow: 0 8px 16px rgba(107, 70, 193, 0.3);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -764,7 +766,7 @@
     <nav>
         <div class="container">
             <a href="#" class="logo">
-                <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 98px; width: auto; filter: drop-shadow(0 0 8px rgba(107, 70, 193, 0.5));">
+                <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 98px; width: auto; filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));">
             </a>
             <ul class="nav-links">
                 <li><a href="#problem">Problem</a></li>
@@ -1006,7 +1008,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 84px; filter: drop-shadow(0 0 4px rgba(107, 70, 193, 0.5));">
+            <img src="logo_transparent.png" alt="DimbaLabs Logo" style="height: 84px; filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));">
             <p>© 2026 DimbaLabs. Built in Abu Dhabi.</p>
             <div class="social">
                 <a href="https://farisallafi.xyz" target="_blank">farisallafi.xyz</a>
