@@ -1003,7 +1003,7 @@
         <div class="container">
             <div class="section-header reveal">
                 <h2>The Paradigm Shift</h2>
-                <p>Watch autoregressive decoding get smoked by diffusion-style parallel generation in real time.</p>
+                <p>The core idea, stripped of the hype.</p>
             </div>
             
             <div class="simulation-card reveal" id="main-sim-box">
@@ -1016,12 +1016,12 @@
                     <h3 id="sim-title">Phase 1: Standard Autoregressive</h3>
                 </div>
                 <div class="sim-body">
-                    <p id="sim-text" class="sim-text"></p>
-                    <span class="cursor" id="sim-cursor"></span>
+                    <p id="sim-text" class="sim-text">The future is non-autoregressive.</p>
+                    <span class="cursor" id="sim-cursor" style="display: none;"></span>
                 </div>
                 <div class="sim-footer">
                     <span>Speed: <span id="sim-speed" class="status-badge slow">O(n) Sequential</span></span>
-                    <span>Status: <span id="sim-status" class="status-badge slow">typing...</span></span>
+                    <span>Status: <span id="sim-status" class="status-badge slow">Complete</span></span>
                 </div>
             </div>
             <p class="sim-disclaimer reveal">// Note: This is a visual simulation representing the generation process</p>
@@ -1192,109 +1192,20 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Simulation Animation
-        const TARGET_TEXT = "The future is non-autoregressive.";
         const simTextEl = document.getElementById('sim-text');
         const simTitleEl = document.getElementById('sim-title');
         const simStatusEl = document.getElementById('sim-status');
         const simSpeedEl = document.getElementById('sim-speed');
         const simCursorEl = document.getElementById('sim-cursor');
         const simBoxEl = document.getElementById('main-sim-box');
-        
-        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]|;:,.<>?~";
-
-        function generateNoise(length) {
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += charset.charAt(Math.floor(Math.random() * charset.length));
-            }
-            return result;
-        }
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        async function runSimulation() {
-            while (true) {
-                // --- Phase 1: Autoregressive ---
-                simBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.3)';
-                simTitleEl.textContent = "Phase 1: Standard Autoregressive";
-                simSpeedEl.textContent = "O(n) Sequential";
-                simSpeedEl.className = "status-badge slow";
-                simStatusEl.textContent = "Generating tokens...";
-                simStatusEl.className = "status-badge slow";
-                simCursorEl.style.display = "inline-block";
-                simTextEl.textContent = "";
-
-                // Type out letter by letter
-                for (let i = 0; i < TARGET_TEXT.length; i++) {
-                    simTextEl.textContent += TARGET_TEXT[i];
-                    await sleep(70 + Math.random() * 40);
-                }
-                
-                simStatusEl.textContent = "Complete";
-                await sleep(1500);
-
-                // --- Transition ---
-                simTextEl.textContent = "";
-                await sleep(500);
-
-                // --- Phase 2: DIMBA Parallel ---
-                simBoxEl.style.borderColor = 'rgba(20, 184, 166, 0.3)';
-                simTitleEl.textContent = "Phase 2: DIMBA Parallel Generation";
-                simSpeedEl.textContent = "O(1) Parallel";
-                simSpeedEl.className = "status-badge fast";
-                simStatusEl.textContent = "Diffusion Noise Injection...";
-                simStatusEl.className = "status-badge fast";
-                simCursorEl.style.display = "none";
-                
-                // Instantly appear as noise
-                let currentText = generateNoise(TARGET_TEXT.length);
-                simTextEl.textContent = currentText;
-                await sleep(100);
-
-                // Scramble and resolve
-                const steps = 15;
-                const stepTime = 500 / steps;
-                
-                for (let step = 1; step <= steps; step++) {
-                    simStatusEl.textContent = `Denoising Step ${step}/${steps}...`;
-                    let tempText = "";
-                    for (let i = 0; i < TARGET_TEXT.length; i++) {
-                        if (Math.random() < (step / steps)) {
-                            tempText += TARGET_TEXT[i];
-                        } else {
-                            tempText += charset.charAt(Math.floor(Math.random() * charset.length));
-                        }
-                    }
-                    if (step === steps) tempText = TARGET_TEXT;
-                    
-                    simTextEl.textContent = tempText;
-                    await sleep(stepTime);
-                }
-                
-                simStatusEl.textContent = "Resolved instantly";
-                await sleep(2500);
-                
-                simTextEl.textContent = "";
-                await sleep(300);
-            }
-        }
-
-        // Start animation when simulation section is visible
-        let started = false;
-        const simObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !started) {
-                started = true;
-                runSimulation();
-            }
-        });
-        
-        const simSection = document.getElementById('simulation');
-        if (simSection) {
-            simObserver.observe(simSection);
-        }
+        simBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+        simTitleEl.textContent = "Phase 1: Standard Autoregressive";
+        simTextEl.textContent = "The future is non-autoregressive.";
+        simSpeedEl.textContent = "O(n) Sequential";
+        simSpeedEl.className = "status-badge slow";
+        simStatusEl.textContent = "Complete";
+        simStatusEl.className = "status-badge slow";
+        simCursorEl.style.display = "none";
     </script>
 </body>
 </html>
