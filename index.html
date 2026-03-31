@@ -452,7 +452,7 @@
                 <h1 class="hero-title">Beyond attention.<br>Beyond transformers.</h1>
                 <p class="hero-desc">We are architecting the next paradigm of cognitive models. Fusing Mamba-style state spaces with continuous diffusion to unlock unbounded reasoning and ultra-fast inference.</p>
                 <div class="btn-group">
-                    <a href="#research" class="btn btn-primary">Read the Paper</a>
+                    <a href="https://doi.org/10.55277/researchhub.lu30m581.2" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Read the Paper</a>
                     <a href="#contact" class="btn btn-outline">Join the Preview</a>
                 </div>
             </div>
@@ -496,17 +496,19 @@
                 <h2>Continuous Latent Reasoning</h2>
             </div>
             
-            <p>Traditional LLMs predict the next token greedily. Dimba operates in a continuous latent space—refining thoughts before projecting them into discrete text space. A look inside the Dimba-1 inference kernel:</p>
+            <p>Traditional LLMs predict the next token greedily. Dimba operates in a continuous latent space—refining thoughts before projecting them into discrete text space.</p>
 
             <div class="architecture-demo">
                 <div class="demo-env" id="terminal">
-                    <!-- JavaScript will populate this -->
+                    <div style="margin-bottom: 0.75rem;">Phase 1: Standard Autoregressive</div>
+                    <div>The future is non-autoregressive.</div>
                 </div>
                 <div class="demo-bar">
-                    <span class="mono">dimba-core v1.0.4a</span>
-                    <span class="mono accent">IDLE</span>
+                    <span class="mono">Speed: O(n) Sequential</span>
+                    <span class="mono accent">Status: Complete</span>
                 </div>
             </div>
+            <p class="mono" style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-tertiary);">// Note: This is a visual simulation representing the generation process</p>
         </div>
     </section>
 
@@ -532,7 +534,7 @@
         <div class="container fade-in">
             <h2>Ready to build the future?</h2>
             <p style="margin: 0 auto 3rem; text-align: center;">We are actively seeking researchers, engineers, and partners to scale the Dimba architecture.</p>
-            <a href="mailto:contact@dimbalabs.com" class="btn btn-primary">Initiate Contact</a>
+            <a href="mailto:farisqaisallafi@gmail.com" class="btn btn-primary">Initiate Contact</a>
         </div>
     </section>
 
@@ -541,7 +543,7 @@
             <div class="footer-links mono">
                 <a href="#">X / Twitter</a>
                 <a href="#">GitHub</a>
-                <a href="#">Research Paper</a>
+                <a href="https://doi.org/10.55277/researchhub.lu30m581.2" target="_blank" rel="noopener noreferrer">Research Paper</a>
             </div>
             <p class="mono" style="font-size: 0.75rem;">© 2026 DimbaLabs. Architected by Faris Allafi.</p>
         </div>
@@ -559,42 +561,6 @@
 
         document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
-        // Terminal text animation
-        const terminal = document.getElementById('terminal');
-        const lines = [
-            "> Initializing Dimba-1 Engine context...",
-            "> Loading Mamba state weights [OK]",
-            "> Bootstrapping diffusion continuous latent space...",
-            "> Setting timesteps T=50",
-            "> Generating latent trajectory...",
-            "> [Iter 10/50] Loss: 0.0412 — Structure emerging",
-            "> [Iter 30/50] Loss: 0.0108 — Refining semantics",
-            "> [Iter 50/50] Loss: 0.0031 — Projection ready",
-            "> Decoded: 'The fundamental limitation is not scale, but state transmission.'",
-            "> Inference complete. Latency: 42ms."
-        ];
-
-        let lineIndex = 0;
-        
-        function typeTerminal() {
-            if (lineIndex < lines.length) {
-                const p = document.createElement('div');
-                p.className = 'code-line';
-                p.style.marginBottom = '0.5rem';
-                p.textContent = lines[lineIndex];
-                terminal.appendChild(p);
-                lineIndex++;
-                setTimeout(typeTerminal, Math.random() * 400 + 200);
-            } else {
-                setTimeout(() => {
-                    terminal.innerHTML = '';
-                    lineIndex = 0;
-                    typeTerminal();
-                }, 5000);
-            }
-        }
-
-        setTimeout(typeTerminal, 1000);
     </script>
 </body>
 </html>
