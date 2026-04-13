@@ -5,440 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DimbaLabs | Architecting the Next Paradigm of Language Models</title>
     <meta name="description" content="DimbaLabs is pioneering Mamba-Based Diffusion, unlocking ultra-fast inference and advanced reasoning for the next generation of AI.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#050505">
+    <link rel="canonical" href="https://dimbalabs.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dimbalabs.com/">
+    <meta property="og:title" content="DimbaLabs | Architecting the Next Paradigm of Language Models">
+    <meta property="og:description" content="Fusing Mamba-style state spaces with continuous diffusion to unlock unbounded reasoning and ultra-fast inference. Beyond attention. Beyond transformers.">
+    <meta property="og:image" content="https://dimbalabs.com/logo_transparent.png">
+    <meta property="og:image:alt" content="DimbaLabs logo">
+    <meta property="og:site_name" content="DimbaLabs">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DimbaLabs | Beyond Attention. Beyond Transformers.">
+    <meta name="twitter:description" content="Mamba-Based Diffusion language models. Ultra-fast inference, advanced reasoning, no KV-cache bottleneck.">
+    <meta name="twitter:image" content="https://dimbalabs.com/logo_transparent.png">
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "DimbaLabs",
+      "url": "https://dimbalabs.com",
+      "logo": "https://dimbalabs.com/logo_transparent.png",
+      "description": "DimbaLabs is pioneering Mamba-Based Diffusion language models, combining Mamba-style state spaces with continuous diffusion for ultra-fast inference.",
+      "founder": {
+        "@type": "Person",
+        "name": "Faris Allafi"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/faris-allafi/"
+      ]
+    }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-base: #050505;
-            --bg-elevated: #0a0a0a;
-            --bg-surface: #111111;
-            
-            --text-primary: #ededed;
-            --text-secondary: #a1a1aa;
-            --text-tertiary: #52525b;
-            
-            --accent-primary: #f43f5e; /* Rose */
-            --accent-dim: rgba(244, 63, 94, 0.1);
-            --accent-glow: rgba(244, 63, 94, 0.2);
-            
-            --border-subtle: #1f1f22;
-            --border-strong: #27272a;
-            
-            --font-sans: 'Space Grotesk', -apple-system, sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-            
-            --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: 0.2s ease;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        ::selection {
-            background: var(--accent-dim);
-            color: var(--accent-primary);
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 0%, var(--bg-elevated) 0%, transparent 70%),
-                radial-gradient(circle at 100% 100%, var(--bg-surface) 0%, transparent 50%);
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-family: var(--font-sans);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-
-        .mono {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-        }
-
-        .accent {
-            color: var(--accent-primary);
-        }
-
-        p {
-            color: var(--text-secondary);
-            font-size: 1.125rem;
-            max-width: 65ch;
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        /* Nav */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            z-index: 100;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 1.25rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-mark {
-            width: 24px;
-            height: 24px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            display: inline-block;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            transition: var(--transition-fast);
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 5rem;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            background: var(--accent-dim);
-            border: 1px solid var(--border-strong);
-            border-radius: 4px;
-            color: var(--accent-primary);
-            margin-bottom: 2rem;
-        }
-
-        .hero-title {
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            margin-bottom: 1.5rem;
-            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-tertiary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: clamp(1.25rem, 2vw, 1.5rem);
-            margin-bottom: 3rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: var(--transition-fast);
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-base);
-            border: 1px solid var(--text-primary);
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--text-primary);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-strong);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--text-secondary);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* Thesis/Mission */
-        .thesis {
-            border-top: 1px solid var(--border-subtle);
-            background: var(--bg-elevated);
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            padding: 2.5rem;
-            border-radius: 8px;
-            transition: var(--transition-smooth);
-        }
-
-        .card:hover {
-            border-color: var(--border-strong);
-            transform: translateY(-4px);
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .card p {
-            font-size: 1rem;
-        }
-
-        .card-number {
-            font-family: var(--font-mono);
-            color: var(--border-strong);
-            font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        /* Architecture Block */
-        .architecture-demo {
-            margin-top: 3rem;
-            background: var(--bg-base);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .demo-env {
-            padding: 2rem;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--accent-primary);
-            min-height: 200px;
-            background: #000;
-            position: relative;
-        }
-        
-        .code-line {
-            opacity: 0;
-            animation: fadeInLine 0.1s forwards;
-        }
-
-        @keyframes fadeInLine {
-            to { opacity: 1; }
-        }
-
-        .demo-bar {
-            background: var(--bg-surface);
-            padding: 0.75rem 1.5rem;
-            border-top: 1px solid var(--border-subtle);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 10px var(--accent-glow);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; box-shadow: 0 0 0 var(--accent-glow); }
-            50% { opacity: 1; box-shadow: 0 0 10px var(--accent-glow); }
-            100% { opacity: 0.4; box-shadow: 0 0 0 var(--accent-glow); }
-        }
-
-        /* Founder / About */
-        .about {
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .portrait {
-            width: 100%;
-            aspect-ratio: 4/5;
-            object-fit: cover;
-            border-radius: 8px;
-            filter: grayscale(100%) contrast(1.2);
-            transition: var(--transition-smooth);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .portrait:hover {
-            filter: grayscale(0%);
-        }
-
-        /* CTA */
-        .cta {
-            text-align: center;
-            padding: 8rem 0;
-            background: var(--bg-elevated);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .cta h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Utils */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .section-header {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            .nav-links {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <nav>
+    <nav aria-label="Main navigation">
         <div class="container nav-inner">
-            <a href="#" class="logo">
-                <div class="logo-mark"></div>
+            <a href="#" class="logo" aria-label="DimbaLabs home">
+                <div class="logo-mark" aria-hidden="true"></div>
                 DimbaLabs
             </a>
-            <div class="nav-links">
-                <a href="#research">RESEARCH</a>
-                <a href="#architecture">ARCHITECTURE</a>
-                <a href="#about">ABOUT</a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+            <div class="nav-links" id="nav-menu" role="list">
+                <a href="#research" role="listitem">RESEARCH</a>
+                <a href="#architecture" role="listitem">ARCHITECTURE</a>
+                <a href="#about" role="listitem">ABOUT</a>
             </div>
         </div>
     </nav>
@@ -446,13 +74,13 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <div class="hero-badge mono">
-                    <span class="status-dot"></span> Core System Online
+                <div class="hero-badge mono" aria-label="System status: online">
+                    <span class="status-dot" aria-hidden="true"></span> Core System Online
                 </div>
                 <h1 class="hero-title">Beyond attention.<br>Beyond transformers.</h1>
                 <p class="hero-desc">We are architecting the next paradigm of cognitive models. Fusing Mamba-style state spaces with continuous diffusion to unlock unbounded reasoning and ultra-fast inference.</p>
                 <div class="btn-group">
-                    <a href="https://doi.org/10.55277/researchhub.lu30m581.2" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Read the Paper</a>
+                    <a href="https://doi.org/10.55277/researchhub.lu30m581.2" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Read the Dimba D1 research paper (opens in new tab)">Read the Paper</a>
                     <a href="#contact" class="btn btn-outline">Get in Touch</a>
                 </div>
             </div>
@@ -462,7 +90,7 @@
     <section id="research" class="thesis">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="mono">01. / Thesis</span>
+                <span class="mono" aria-hidden="true">01. / Thesis</span>
                 <div>
                     <h2>The transformer era is hitting a wall.</h2>
                     <p>Quadratic scaling in attention mechanisms limits context windows and slows inference. DimbaLabs is fundamentally challenging this architecture by building models that maintain constant-time state updates without sacrificing generating quality.</p>
@@ -471,17 +99,17 @@
 
             <div class="grid-layout fade-in">
                 <div class="card">
-                    <span class="card-number">01</span>
+                    <span class="card-number" aria-hidden="true">01</span>
                     <h3>State Space Mamba</h3>
                     <p>Replacing traditional attention with selective state space models (SSMs) like Mamba. This yields linear-time scaling, allowing for virtually infinite context capabilities with aggressive memory efficiency.</p>
                 </div>
                 <div class="card">
-                    <span class="card-number">02</span>
+                    <span class="card-number" aria-hidden="true">02</span>
                     <h3>Diffusion Processing</h3>
                     <p>Applying diffusion paradigms typically used in imaging directly to latent textual states. This continuous refinement enables advanced, iterative reasoning steps prior to token generation.</p>
                 </div>
                 <div class="card">
-                    <span class="card-number">03</span>
+                    <span class="card-number" aria-hidden="true">03</span>
                     <h3>Sub-Second Inference</h3>
                     <p>By eliminating the KV-cache bottleneck, inference logic collapses into a fixed memory footprint. Generation speeds achieve an order of magnitude increase, enabling real-time complex reasoning.</p>
                 </div>
@@ -492,23 +120,20 @@
     <section id="architecture">
         <div class="container fade-in">
             <div class="section-header">
-                <span class="mono">02. / Architecture</span>
+                <span class="mono" aria-hidden="true">02. / Architecture</span>
                 <h2>Continuous Latent Reasoning</h2>
             </div>
-            
+
             <p>Traditional LLMs predict the next token greedily. Dimba operates in a continuous latent space—refining thoughts before projecting them into discrete text space.</p>
 
-            <div class="architecture-demo">
-                <div class="demo-env" id="terminal">
-                    <div style="margin-bottom: 0.75rem;">Phase 1: Standard Autoregressive</div>
-                    <div>The future is non-autoregressive.</div>
-                </div>
-                <div class="demo-bar">
-                    <span class="mono">Speed: O(n) Sequential</span>
-                    <span class="mono accent">Status: Complete</span>
+            <div class="architecture-demo" role="img" aria-label="Animated terminal comparing autoregressive and Dimba diffusion inference">
+                <div class="demo-env" id="terminal" aria-live="polite" aria-atomic="false"></div>
+                <div class="demo-bar" id="demo-bar">
+                    <span class="mono" style="color: var(--text-secondary)">Initializing...</span>
+                    <span class="mono accent">Dimba D1</span>
                 </div>
             </div>
-            <p class="mono" style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-tertiary);">// Note: This is a visual simulation representing the generation process</p>
+            <p class="mono" style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-tertiary);">// Visual simulation representing the generation process</p>
         </div>
     </section>
 
@@ -523,8 +148,14 @@
                     <p style="margin-top: 1rem;">Operating out of Dubai. Focused on uncompromised technical depth, open research, and pushing inference theoretical limits.</p>
                 </div>
                 <div>
-                    <!-- Fallback to a styled div if image missing, but uses founder.jpg or faris.png -->
-                    <img src="faris.png" alt="Faris Allafi" class="portrait" onerror="this.onerror=null; this.src='founder.jpg'; if(this.src=='founder.jpg') this.onerror=function(){this.style.display='none'};">
+                    <img
+                        src="faris.png"
+                        alt="Faris Allafi, founder of DimbaLabs"
+                        class="portrait"
+                        loading="lazy"
+                        decoding="async"
+                        onerror="this.onerror=null; this.src='founder.jpg';"
+                    >
                 </div>
             </div>
         </div>
@@ -534,33 +165,151 @@
         <div class="container fade-in">
             <h2>Ready to build the future?</h2>
             <p style="margin: 0 auto 3rem; text-align: center;">We are actively seeking researchers, engineers, and partners to scale the Dimba architecture.</p>
-            <a href="mailto:farisqaisallafi@gmail.com" class="btn btn-primary">Initiate Contact</a>
+            <a href="mailto:farisqaisallafi@gmail.com" class="btn btn-primary" aria-label="Send an email to DimbaLabs">Initiate Contact</a>
         </div>
     </section>
 
     <footer>
         <div class="container">
             <div class="footer-links mono">
-                <a href="https://www.linkedin.com/in/faris-allafi/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="#">GitHub</a>
-                <a href="https://doi.org/10.55277/researchhub.lu30m581.2" target="_blank" rel="noopener noreferrer">Research Paper</a>
+                <a href="https://www.linkedin.com/in/faris-allafi/" target="_blank" rel="noopener noreferrer" aria-label="Faris Allafi on LinkedIn (opens in new tab)">LinkedIn</a>
+                <a href="https://doi.org/10.55277/researchhub.lu30m581.2" target="_blank" rel="noopener noreferrer" aria-label="Dimba D1 research paper (opens in new tab)">Research Paper</a>
             </div>
             <p class="mono" style="font-size: 0.75rem;">© 2026 DimbaLabs. Architected by Faris Allafi.</p>
         </div>
     </footer>
 
     <script>
-        // Simple Intersection Observer for fade-ins
+        // Fade-in on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+        // Mobile nav toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', String(!expanded));
+            navMenu.classList.toggle('open', !expanded);
+        });
+
+        // Close mobile nav when a link is clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // Terminal animation
+        (function () {
+            const terminal = document.getElementById('terminal');
+            const demoBar = document.getElementById('demo-bar');
+            if (!terminal || !demoBar) return;
+
+            function sleep(ms) {
+                return new Promise(r => setTimeout(r, ms));
+            }
+
+            function addLine(container, text, color) {
+                const el = document.createElement('div');
+                el.style.color = color;
+                el.textContent = text;
+                container.appendChild(el);
+                return el;
+            }
+
+            async function typePrompt(container, text) {
+                const el = document.createElement('div');
+                el.style.color = '#f43f5e';
+                container.appendChild(el);
+                for (const char of text) {
+                    el.textContent += char;
+                    await sleep(32);
+                }
+                return el;
+            }
+
+            function setBar(leftText, rightText, rightColor) {
+                demoBar.innerHTML =
+                    `<span class="mono" style="color:var(--text-secondary)">${leftText}</span>` +
+                    `<span class="mono" style="color:${rightColor}">${rightText}</span>`;
+            }
+
+            async function phaseAR() {
+                terminal.innerHTML = '';
+                setBar('Mode: Autoregressive — O(n)', 'Sequential', '#6b7280');
+
+                await typePrompt(terminal, '$ transformer.run("What is consciousness?")');
+                await sleep(280);
+                addLine(terminal, '', '');
+                addLine(terminal, 'mode: autoregressive  |  sequential decoding', '#4b5563');
+                await sleep(380);
+
+                const out = addLine(terminal, '', '#d4d4d8');
+                for (const token of ['Consciousness', ' is', ' the', ' subjective', ' quality', ' of', ' experience...']) {
+                    out.textContent += token;
+                    await sleep(360);
+                }
+                await sleep(300);
+                addLine(terminal, '', '');
+                addLine(terminal, '⏱  latency: 4,180ms', '#6b7280');
+                setBar('Mode: Autoregressive — O(n)', 'Slow', '#6b7280');
+                await sleep(2800);
+            }
+
+            async function phaseDimba() {
+                terminal.innerHTML = '';
+                setBar('Mode: Diffusion — O(1)', 'Running...', '#f43f5e');
+
+                await typePrompt(terminal, '$ dimba_d1.run("What is consciousness?")');
+                await sleep(200);
+                addLine(terminal, '', '');
+                addLine(terminal, 'encoding input to latent space...', '#4b5563');
+                await sleep(350);
+
+                const prog = addLine(terminal, 'diffusing  [░░░░░░░░░░░░] 0%', '#f43f5e');
+                for (let i = 1; i <= 12; i++) {
+                    await sleep(75);
+                    const pct = Math.round((i / 12) * 100);
+                    prog.textContent = `diffusing  [${'█'.repeat(i)}${'░'.repeat(12 - i)}] ${pct}%`;
+                }
+                await sleep(180);
+
+                addLine(terminal, 'projecting latent → token space...', '#4b5563');
+                await sleep(180);
+                addLine(terminal, '', '');
+                addLine(terminal, '"Consciousness is the subjective quality of experience."', '#ededed');
+                await sleep(280);
+                addLine(terminal, '', '');
+                addLine(terminal, '⚡ latency: 312ms  |  13× faster', '#4ade80');
+                setBar('Mode: Diffusion — O(1)', '13× Faster', '#4ade80');
+                await sleep(3200);
+            }
+
+            async function loop() {
+                while (true) {
+                    await phaseAR();
+                    await phaseDimba();
+                }
+            }
+
+            // Start only when the terminal is in view
+            const termObs = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    termObs.unobserve(terminal);
+                    loop();
+                }
+            }, { threshold: 0.3 });
+
+            termObs.observe(terminal);
+        })();
     </script>
 </body>
 </html>
